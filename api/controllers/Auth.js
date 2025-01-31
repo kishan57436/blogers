@@ -1,0 +1,256 @@
+
+  import { handleError } from "../helpers/Handlererror.js";
+
+import User from "../models/User.js";
+// import  bcryptjs from "bcryptjs";
+// import jwt from 'jsonwebtoken'
+// export const Register=async(req,res,next)=>
+// {
+// try{
+//     const {name,email,password}=req.body;
+
+//     const user=await User.findOne({email})
+//     if(user)
+//     {
+//         // user already exist  this way we have to do this question we are going to solved th eanswer
+//         next(handleerror(409,'user alredy register...'))
+
+
+//     }
+//     const hashedpassword= await bcryptjs.hashSync(password);
+//     const newuser= new User({
+//         name,email,
+//         password:hashedpassword
+
+//     })
+//     await newuser.save();
+
+    
+
+//     res.status(200).json({
+//       success: true,
+    
+//       message: 'User registered successfully'
+//     });
+       
+    
+
+
+// }
+// catch(error)
+// {
+//     next(handleerror(500,error.message))
+
+// }
+
+
+
+// }
+
+
+// export const Login=async(req,res,next)=>
+//     {
+//         // let me run 
+//         try{
+//             const{name,password}=req.body;
+//             const user=await User.findOne({email});
+//             if(!user)
+//             {
+//                 next(handleerror(404,'Invalid login credentails'))
+
+//             }
+//             // if user is exist now we have to  this way we ha v
+//             // this way we can solved the answr so easily without having any problem lets do it 
+//             const hashedpassword=user.password
+//             const comparepassword= await bcryptjs.compare(password,hashedpassword)
+//             if(!comparepassword)
+//             {
+//                 next(handleerror(404,'Invalid login credentails'));
+//             }
+
+//             // create token jwt token
+//             const token=jwt.sign({
+//                 name:user.name,
+//                 email:user.email,
+//                 avtar:user.avtar,
+//                 _id:user._id,
+//             },process.env.JWT_SECERT)
+
+//             res.cookie('access_token',token,{
+//                 httpOnly:true,
+//                 secure:process.env.NODE_ENV==='production',
+//                 sameSite:process.env.NODE_ENV==='production'?'none':'strict',
+//                 path:'/'
+
+//             })
+//             const newUser = user.toObject({ getters: true })
+//             delete newUser.password
+//             res.status(200).json({
+//                 success:true,
+//                 user:newUser,
+//                 message:'login successful'
+//             })
+
+//         }
+//         catch(error)
+//         {
+// next(handleerror(500,error.message));
+//         }
+      
+    
+//     }
+
+
+
+
+// import { handleError } from "../helpers/handleError.js"
+// import User from "../models/user.model.js"
+import bcryptjs from 'bcryptjs'
+import jwt from 'jsonwebtoken'
+export const Register = async (req, res, next) => {
+    try {
+        const { name, email, password } = req.body
+        const checkuser = await User.findOne({ email })
+        if (checkuser) {
+            // user already registered 
+            next(handleError(409, 'User already registered.'))
+        }
+
+        const hashedPassword = bcryptjs.hashSync(password)
+        // register user  
+        const user = new User({
+            name, email, password: hashedPassword
+        })
+
+        await user.save();
+
+        res.status(200).json({
+            success: true,
+            message: 'Registration successful.'
+        })
+
+    } catch (error) {
+        next(handleError(500, error.message))
+    }
+}
+
+
+export const Login = async (req, res, next) => {
+    try {
+        const { email, password } = req.body
+       
+       
+        const user = await User.findOne({ email })
+        if (!user) {
+            next(handleError(404, 'Invalid login credentials.'))
+        }
+       
+        const hashedPassword = user.password
+
+        const comparePassword = bcryptjs.compare(password, hashedPassword)
+       
+        if (!comparePassword) {
+            next(handleError(404, 'Invalid login credentials.'))
+        }
+      
+        const token = jwt.sign({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            avatar: user.avatar,
+            role:user.role
+        }, process.env.JWT_SECRET)
+
+
+        res.cookie('access_token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+            path: '/'
+        })
+
+        const newUser = user.toObject({ getters: true })
+        delete newUser.password
+        res.status(200).json({
+            success: true,
+            user: newUser,
+            message: 'Login successful.'
+        })
+
+    } catch (error) {
+        next(handleError(500, error.message))
+    }
+}
+
+export const GoogleLogin = async (req, res, next) => {
+    try {
+        const { name, email, avatar } = req.body
+        let user
+        user = await User.findOne({ email })
+        user.avatar=avatar
+        if (!user) {
+            //  create new user 
+            const password = Math.random().toString()
+            const hashedPassword = bcryptjs.hashSync(password)
+            const newUser = new User({
+                name, email, password: hashedPassword, avatar
+            })
+
+           user = await newUser.save()
+           next(handleError(400,'please sinup first'))
+
+        }
+        console.log("google login me se print ho rha ha",user)
+
+
+        const token = jwt.sign({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            avatar: user.avatar,
+            role:user.role
+        }, process.env.JWT_SECRET)
+
+
+        res.cookie('access_token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+            path: '/'
+        })
+
+        const newUser = user.toObject({ getters: true })
+        delete newUser.password
+        console.log("new user ha",newUser);
+        res.status(200).json({
+            success: true,
+            user: newUser,
+            message: 'Login successful.'
+        })
+
+    } catch (error) {
+        next(handleError(500, error.message))
+    }
+}
+
+
+
+export const Logout = async (req, res, next) => {
+    try {
+
+        res.clearCookie('access_token', {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+            path: '/'
+        })
+
+        res.status(200).json({
+            success: true,
+            message: 'Logout successful.'
+        })
+
+    } catch (error) {
+        next(handleError(500, error.message))
+    }
+}
