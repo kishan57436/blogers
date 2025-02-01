@@ -1,6 +1,6 @@
 import Appsidebar from '@/components/Appsidebar'
 import Footer from '@/components/Footer'
-import Topbar from '@/components/topbar'
+import Topbar from '@/components/Topbar'
 import { SidebarProvider } from '@/components/ui/sidebar'
 import React from 'react'
 import { Outlet } from 'react-router-dom'
