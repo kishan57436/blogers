@@ -1,9 +1,9 @@
 
 
-import './App.css'
+
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Layout from './layout/layout'
+
 import { Routeaddcategory, RouteBlog, RouteBlogAdd, RouteBlogbycategory, RouteBlogDetails, RouteBlogEdit, Routecategorydetails, RouteCommentDetails, Routeeditcategory, Routeindex, Routeprofile, Routesearch, RouteSign, RouteSignup, RouteUser } from './components/helpers/RouterName'
 import Index from './pages/Index'
 import Signin from './pages/Signin'
@@ -24,6 +24,7 @@ import Comments from './pages/Comments'
 import User from './pages/User'
 import AuthRouteProtechtion from './components/Authrouteprotection'
 import OnlyAdminAllowed from './components/Onlyadminallowed'
+import Layout from './Layout/Layout'
 
 
 
@@ -31,7 +32,7 @@ function App() {
 
   // now it is working herew so easily without helping htis way we could our answer so easily wihtout having any other this wazy
   
-console.log("ksiahahhahahha");
+
   return (
     <>
     
