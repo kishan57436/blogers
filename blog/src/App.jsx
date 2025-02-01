@@ -13,7 +13,7 @@ import Editcategory from './pages/Category/Editcategory'
 import Addcategory from './pages/Category/Addcategory'
 
 
-import Categorydetails from './pages/Category/categorydetails'
+import Categorydetails from './pages/Category/Categorydetails'
 import Addblog from './pages/Blog/Addblog'
 import Editblog from './pages/Blog/Editblog'
 import Blogdetails from './pages/Blog/Blogdetails'
