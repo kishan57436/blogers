@@ -14,7 +14,7 @@ import Addcategory from './pages/Category/Addcategory'
 
 
 import Categorydetails from './pages/Category/categorydetails'
-import Addblog from './pages/Blog/addblog'
+import Addblog from './pages/Blog/Addblog'
 import Editblog from './pages/Blog/Editblog'
 import Blogdetails from './pages/Blog/Blogdetails'
 import Singleblogdetails from './pages/Singleblogdetails'
