@@ -20,7 +20,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Button } from '@/components/ui/button'
 import { Textarea } from "@/components/ui/textarea"
 import { usefetch } from '@/hooks/usefetch'
-import Loading from '@/components/loading'
+import Loading from '@/components/Loading'
 import { IoCameraOutline } from "react-icons/io5";
 import Dropzone from 'react-dropzone'
 import { setUser } from '@/redux/user/userslice'
