@@ -224,7 +224,7 @@ if(loading)
                                     )}
                                 </Dropzone>
                             </div>
-                            <div className='mb-3 mehu'>
+                            <div className='mb-3 mehu text-black'>
 
                                 <FormField
                                     control={form.control}
@@ -232,7 +232,7 @@ if(loading)
                                     render={({ field }) => (
                                         <FormItem>
                                             <FormLabel>Blog Content</FormLabel>
-                                            <FormControl >
+                                            <FormControl  className="text-black">
                                                 <Editor  props={{ initialData: field.value, onChange: handleEditorData }} />
                                             </FormControl>
                                             <FormMessage />
