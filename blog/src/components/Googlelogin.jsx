@@ -17,7 +17,7 @@ const Googlelogin = () => {
     {
         try{
             const googleresposne=await signInWithPopup(auth,provider);
-            console.log(googleresposne);
+            console.log("check kar rha hu google respose aa rha ha ya nhi",googleresposne);
             const user=googleresposne.user
             const bodydata={
                 name:user.displayName,
