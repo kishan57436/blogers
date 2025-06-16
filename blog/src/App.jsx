@@ -1,7 +1,5 @@
 
 
-
-
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import { Routeaddcategory, RouteBlog, RouteBlogAdd, RouteBlogbycategory, RouteBlogDetails, RouteBlogEdit, Routecategorydetails, RouteCommentDetails, Routeeditcategory, Routeindex, Routeprofile, Routesearch, RouteSign, RouteSignup, RouteUser } from './components/helpers/RouterName'
